@@ -11,6 +11,7 @@
         <module name="auth-service" />
         <module name="budget-service" />
         <module name="account-service" />
+        <module name="feign-service" />
         <module name="discovery-service" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="auth-service" target="11" />
       <module name="budget-service" target="11" />
       <module name="discovery-service" target="17" />
+      <module name="feign-service" target="11" />
       <module name="transaction-service" target="11" />
     </bytecodeTargetLevel>
   </component>
@@ -28,6 +30,7 @@
       <module name="auth-service" options="-parameters" />
       <module name="budget-service" options="-parameters" />
       <module name="discovery-service" options="-parameters" />
+      <module name="feign-service" options="-parameters" />
       <module name="transaction-service" options="-parameters" />
     </option>
   </component>
