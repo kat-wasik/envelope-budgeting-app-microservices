@@ -1,6 +1,7 @@
 package com.example.feignservice.controller;
 
 import com.example.feignservice.dto.BudgetDTO;
+import com.example.feignservice.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,12 @@ public class BudgetController {
     @Autowired
     private BudgetService budgetService;
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public BudgetDTO getBudget(@PathVariable Long id) {
-        return budgetService.getBudget(id);
-    };
+    @GetMapping
+    public BudgetDTO getBudgetByUser() {
+        return budgetService.getBudgetByUser();
+    }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public BudgetDTO create(@RequestBody BudgetDTO budgetDTO) {
         return budgetService.create(budgetDTO);
     }

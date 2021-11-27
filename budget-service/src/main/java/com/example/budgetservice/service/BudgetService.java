@@ -14,9 +14,9 @@ public class BudgetService {
     private BudgetRepository budgetRepository;
 
     @Transactional(readOnly = true)
-    public BudgetDTO getBudget(Long id) {
-        Budget budget = budgetRepository.findById(id)
-                .orElseThrow(() -> new BudgetNotFoundException("Budget with id " + id + " not found"));
+    public BudgetDTO getBudgetByUser(Long user) {
+        Budget budget = budgetRepository.findByUser(user)
+                .orElseThrow(() -> new BudgetNotFoundException("Budget of user with id " + user + " not found"));
         return mapToDto(budget);
     }
 

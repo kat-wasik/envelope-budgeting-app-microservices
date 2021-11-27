@@ -14,20 +14,17 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping
-    @ResponseStatus(HttpStatus.OK)
-    public List<AccountDTO> getAllAccounts() {
-        return accountService.getAllAccounts();
+    @GetMapping("/budget")
+    public List<AccountDTO> getAccountsByBudget(@RequestParam(name = "id") String budgetId) {
+        return accountService.getAccountsByBudget(Long.valueOf(budgetId));
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public AccountDTO getAccount(@PathVariable Long id) {
         return accountService.getAccount(id);
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public AccountDTO create(@RequestBody AccountDTO accountDTO) {
         return accountService.save(accountDTO);
     }

@@ -21,10 +21,22 @@ public class Account {
     @Embedded
     private Money balance;
 
+    @Enumerated(EnumType.STRING)
     private AccountType type;
 
     private Long budget;
 
     @ElementCollection
     private List<Long> transactions;
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", balance=" + balance +
+                ", type=" + type +
+                ", budget=" + budget +
+                '}';
+    }
 }

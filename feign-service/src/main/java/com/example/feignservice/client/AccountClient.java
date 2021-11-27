@@ -9,9 +9,9 @@ import java.util.List;
 
 @FeignClient("account-service")
 public interface AccountClient {
-    @GetMapping("api/account")
+    @GetMapping("api/account/budget")
     @ResponseStatus(HttpStatus.OK)
-    public List<AccountDTO> getAllAccounts();
+    public List<AccountDTO> getAccountsByBudget(@RequestParam(name = "id") String budgetId);
 
     @GetMapping("api/account/{id}")
     @ResponseStatus(HttpStatus.OK)

@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient("budget-service")
 public interface BudgetClient {
-    @GetMapping("/api/budget/{id}")
+    @GetMapping("/api/budget/user")
     @ResponseStatus(HttpStatus.OK)
-    public BudgetDTO getBudget(@PathVariable Long id);
+    public BudgetDTO getBudgetByUser(@RequestParam(name = "id") String user);
 
     @PostMapping("/api/budget")
     @ResponseStatus(HttpStatus.CREATED)

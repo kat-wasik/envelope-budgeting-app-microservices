@@ -1,6 +1,6 @@
-package com.example.authservice.repository;
+package com.example.feignservice.repository;
 
-import com.example.authservice.model.User;
+import com.example.feignservice.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

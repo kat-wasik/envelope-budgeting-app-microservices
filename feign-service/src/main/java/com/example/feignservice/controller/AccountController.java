@@ -6,14 +6,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.example.feignservice.service.AccountService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/account")
 public class AccountController {
     @Autowired
     private AccountService accountService;
 
+    @GetMapping
+    public List<AccountDTO> getAccountsByBudget() {
+        return accountService.getAccountsByBudget();
+    }
+
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public AccountDTO create(@RequestBody AccountDTO accountDTO) {
         return accountService.create(accountDTO);
     }

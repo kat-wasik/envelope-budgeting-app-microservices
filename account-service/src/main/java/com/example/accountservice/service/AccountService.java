@@ -21,8 +21,8 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Transactional(readOnly = true)
-    public List<AccountDTO> getAllAccounts() {
-        return accountRepository.findAll()
+    public List<AccountDTO> getAccountsByBudget(Long budgetId) {
+        return accountRepository.findAllByBudget(budgetId)
                 .stream()
                 .map(this::mapToDto)
                 .collect(toList());
@@ -46,7 +46,7 @@ public class AccountService {
     private Account mapToAccount(AccountDTO accountDTO) {
         return Account.builder()
                 .name(accountDTO.getName())
-                .balance(new Money(new BigDecimal(accountDTO.getBalance())))
+               .balance(new Money(new BigDecimal("1000")))
                 .type(AccountType.valueOf(accountDTO.getType().toUpperCase()))
                 .budget(accountDTO.getBudget())
                 .build();
