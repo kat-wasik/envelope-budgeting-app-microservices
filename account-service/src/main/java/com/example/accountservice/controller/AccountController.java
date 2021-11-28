@@ -3,7 +3,6 @@ package com.example.accountservice.controller;
 import com.example.accountservice.dto.AccountDTO;
 import com.example.accountservice.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,5 +26,10 @@ public class AccountController {
     @PostMapping
     public AccountDTO create(@RequestBody AccountDTO accountDTO) {
         return accountService.save(accountDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        accountService.delete(id);
     }
 }

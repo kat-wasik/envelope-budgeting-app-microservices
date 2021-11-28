@@ -13,15 +13,4 @@ public class AccountDTO {
     private String balance;
     private String type;
     private Long budget;
-
-    @Override
-    public String toString() {
-        return "AccountDTO{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", balance='" + balance + '\'' +
-                ", type='" + type + '\'' +
-                ", budget=" + budget +
-                '}';
-    }
 }

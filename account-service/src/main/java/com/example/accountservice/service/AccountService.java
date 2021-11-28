@@ -43,10 +43,15 @@ public class AccountService {
         return mapToDto(account);
     }
 
+    @Transactional
+    public void delete(Long id) {
+        accountRepository.deleteById(id);
+    }
+
     private Account mapToAccount(AccountDTO accountDTO) {
         return Account.builder()
                 .name(accountDTO.getName())
-               .balance(new Money(new BigDecimal("1000")))
+                .balance(new Money(new BigDecimal(accountDTO.getBalance())))
                 .type(AccountType.valueOf(accountDTO.getType().toUpperCase()))
                 .budget(accountDTO.getBudget())
                 .build();
