@@ -15,9 +15,18 @@ public interface TransactionClient {
     @GetMapping("/api/transaction/{id}")
     public TransactionDTO getTransaction(@PathVariable Long id);
 
+    @GetMapping("/api/transaction/balance")
+    public String getBalanceByAccount(@RequestParam(name = "accountId") String accountId);
+
     @PostMapping("/api/transaction")
     public TransactionDTO create(@RequestBody TransactionDTO transactionDTO);
 
     @DeleteMapping("/api/transaction/{id}")
     public void delete(@PathVariable Long id);
+
+    @DeleteMapping("/api/transaction/account")
+    public void deleteTransactionsByAccount(@RequestParam(name = "id") String accountId);
+
+    @PutMapping("api/transaction")
+    public TransactionDTO update(@RequestBody TransactionDTO transactionDTO);
 }

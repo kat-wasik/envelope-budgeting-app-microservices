@@ -16,7 +16,4 @@ public class Budget {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long user;
-
-    @ElementCollection
-    private List<Long> accounts;
 }

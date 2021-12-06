@@ -3,7 +3,6 @@ package com.example.accountservice.service;
 import com.example.accountservice.dto.AccountDTO;
 import com.example.accountservice.exception.AccountNotFoundException;
 import com.example.accountservice.model.Account;
-import com.example.accountservice.model.AccountType;
 import com.example.accountservice.model.Money;
 import com.example.accountservice.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -51,8 +51,7 @@ public class AccountService {
     private Account mapToAccount(AccountDTO accountDTO) {
         return Account.builder()
                 .name(accountDTO.getName())
-                .balance(new Money(new BigDecimal(accountDTO.getBalance())))
-                .type(AccountType.valueOf(accountDTO.getType().toUpperCase()))
+                .balance(new Money(new BigDecimal(accountDTO.getBalance()), Currency.getInstance(accountDTO.getCurrency())))
                 .budget(accountDTO.getBudget())
                 .build();
     }
@@ -62,9 +61,18 @@ public class AccountService {
                 .id(account.getId())
                 .name(account.getName())
                 .balance(account.getBalance().getAmount().toString())
-                .type(account.getType().toString())
                 .budget(account.getBudget())
+                .currency(account.getBalance().getCurrency().toString())
                 .build();
 
+    }
+
+    public AccountDTO update(AccountDTO accountDTO) {
+        Account account = accountRepository.getById(accountDTO.getId());
+        account.setName(accountDTO.getName());
+        account.setBalance(new Money(new BigDecimal(accountDTO.getBalance())));
+        accountRepository.save(account);
+
+        return mapToDto(account);
     }
 }

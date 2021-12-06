@@ -1,8 +1,9 @@
-package com.example.transactionservice.controller;
+package com.example.feignservice.controller;
 
-import com.example.transactionservice.dto.TransactionDTO;
-import com.example.transactionservice.service.TransactionService;
+import com.example.feignservice.dto.TransactionDTO;
+import com.example.feignservice.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,34 +14,25 @@ public class TransactionController {
     @Autowired
     private TransactionService transactionService;
 
-    @GetMapping("/account")
+    @GetMapping("account")
     public List<TransactionDTO> getTransactionsByAccount(@RequestParam(name = "id") String accountId) {
-        return transactionService.getTransactionsByAccount(Long.valueOf(accountId));
-    }
-
-    @DeleteMapping("/account")
-    public void deleteTransactionsByAccount(@RequestParam(name = "id") String accountId) {
-        transactionService.deleteTransactionsByAccount(Long.valueOf(accountId));
-    }
-
-    @GetMapping("/balance")
-    public String getBalanceByAccount(@RequestParam(name = "accountId") String accountId) {
-        return transactionService.calculateBalanceByAccount(Long.valueOf(accountId));
+        return transactionService.getTransactionsByAccount(accountId);
     }
 
     @GetMapping("{id}")
     public TransactionDTO getTransaction(@PathVariable Long id) {
         return transactionService.getTransaction(id);
+
     }
 
     @PostMapping
     public TransactionDTO create(@RequestBody TransactionDTO transactionDTO) {
-        return transactionService.save(transactionDTO);
+        return transactionService.create(transactionDTO);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
-        transactionService.delete(id);
+       transactionService.delete(id);
     }
 
     @PutMapping

@@ -20,23 +20,4 @@ public class BudgetServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BudgetServiceApplication.class, args);
 	}
-
-	@Bean
-	InitializingBean createBudgets() {
-		return () -> {
-			budgetRepository.save(Budget
-					.builder()
-					.user(Long.valueOf("1"))
-					.accounts(List.of(Long.valueOf("1")))
-					.build()
-			);
-
-			budgetRepository.save(Budget
-					.builder()
-					.user(Long.valueOf("2"))
-					.accounts(List.of(Long.valueOf("2")))
-					.build()
-			);
-		};
-	}
 }

@@ -28,6 +28,11 @@ public class AccountController {
         return accountService.save(accountDTO);
     }
 
+    @PutMapping
+    public AccountDTO update(@RequestBody AccountDTO accountDTO) {
+        return accountService.update(accountDTO);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         accountService.delete(id);

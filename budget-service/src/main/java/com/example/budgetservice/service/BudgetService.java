@@ -44,7 +44,6 @@ public class BudgetService {
     private Budget mapToBudget(BudgetDTO budgetDTO) {
         return Budget.builder()
                 .user(budgetDTO.getUser())
-                .accounts(budgetDTO.getAccounts())
                 .build();
     }
 
@@ -52,7 +51,6 @@ public class BudgetService {
         return BudgetDTO.builder()
                 .id(budget.getId())
                 .user(budget.getUser())
-                .accounts(budget.getAccounts())
                 .build();
     }
 

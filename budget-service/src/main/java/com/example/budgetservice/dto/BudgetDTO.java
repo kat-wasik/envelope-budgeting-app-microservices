@@ -12,5 +12,4 @@ import java.util.List;
 public class BudgetDTO {
     Long id;
     Long user;
-    List<Long> accounts;
 }

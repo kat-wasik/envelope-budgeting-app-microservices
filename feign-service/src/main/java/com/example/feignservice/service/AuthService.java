@@ -1,9 +1,7 @@
 package com.example.feignservice.service;
 
-import com.example.feignservice.dto.AuthenticationResponse;
-import com.example.feignservice.dto.LoginRequest;
-import com.example.feignservice.dto.RefreshTokenRequest;
-import com.example.feignservice.dto.RegisterRequest;
+import com.example.feignservice.client.BudgetClient;
+import com.example.feignservice.dto.*;
 import com.example.feignservice.model.User;
 import com.example.feignservice.repository.UserRepository;
 import com.example.feignservice.security.CustomUserDetails;
@@ -24,20 +22,20 @@ import java.time.Instant;
 @AllArgsConstructor
 @Transactional
 public class AuthService {
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
+    private final BudgetClient budgetClient;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
         User user = new User();
         user.setUsername(registerRequest.getUsername());
         user.setPassword(encodePassword(registerRequest.getPassword()));
-
-        userRepository.save(user);
+        user = userRepository.save(user);
+        budgetClient.create(BudgetDTO.builder().user(user.getId()).build());
     }
 
     private String encodePassword(String password) {

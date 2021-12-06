@@ -25,25 +25,4 @@ public class FeignServiceApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(FeignServiceApplication.class, args);
 	}
-
-	@Bean
-	InitializingBean createUsers() {
-		return () -> {
-			userRepository.save(User
-					.builder()
-					.username("kat@abc.com")
-					.password("$2a$10$6LVAjeKW2L9KfD17qiTTGuOAJ2OS6hJ6b2WMp6GKzswiy32G/vLmK")
-					.budget(Long.valueOf("1"))
-					.build()
-			);
-
-			userRepository.save(User
-					.builder()
-					.username("aga@abc.com")
-					.password("$2a$10$6LVAjeKW2L9KfD17qiTTGuOAJ2OS6hJ6b2WMp6GKzswiy32G/vLmK")
-					.budget(Long.valueOf("2"))
-					.build()
-			);
-		};
-	}
 }

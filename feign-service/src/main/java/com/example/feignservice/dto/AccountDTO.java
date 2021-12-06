@@ -11,6 +11,6 @@ public class AccountDTO {
     private Long id;
     private String name;
     private String balance;
-    private String type;
+    private String currency;
     private Long budget;
    }

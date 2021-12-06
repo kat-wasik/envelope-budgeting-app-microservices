@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Currency;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -48,9 +49,25 @@ public class TransactionService {
         transactionRepository.deleteById(id);
     }
 
+    @Transactional
+    public void deleteTransactionsByAccount(Long accountId) {
+        transactionRepository.deleteByAccount(accountId);
+    }
+
+    @Transactional
+    public TransactionDTO update(TransactionDTO transactionDTO) {
+        Transaction transaction = transactionRepository.getById(transactionDTO.getId());
+        transaction.setAmount(new Money(new BigDecimal((transactionDTO.getAmount()))));
+        transaction.setDate(LocalDate.parse(transactionDTO.getDate()));
+        transaction.setDescription(transactionDTO.getDescription());
+
+        transactionRepository.save(transaction);
+        return mapToDto(transaction);
+    }
+
     private Transaction mapToTransaction(TransactionDTO transactionDTO) {
         return Transaction.builder()
-                .amount(new Money((new BigDecimal(transactionDTO.getAmount()))))
+                .amount(new Money((new BigDecimal(transactionDTO.getAmount())), Currency.getInstance(transactionDTO.getCurrency())))
                 .date(LocalDate.parse(transactionDTO.getDate()))
                 .description(transactionDTO.getDescription())
                 .account(transactionDTO.getAccount())
@@ -61,9 +78,14 @@ public class TransactionService {
         return TransactionDTO.builder()
                 .id(transaction.getId())
                 .amount(transaction.getAmount().getAmount().toString())
+                .currency(transaction.getAmount().getCurrency().toString())
                 .date(transaction.getDate().toString())
                 .description(transaction.getDescription())
                 .account(transaction.getAccount())
                 .build();
+    }
+
+    public String calculateBalanceByAccount(Long account) {
+        return transactionRepository.calculateBalanceByAccount(account).toString();
     }
 }

@@ -1,8 +1,10 @@
 package com.example.accountservice.model;
 
+import com.thoughtworks.xstream.converters.extended.CurrencyConverter;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Currency;
 import java.util.List;
 
 @Entity
@@ -21,22 +23,5 @@ public class Account {
     @Embedded
     private Money balance;
 
-    @Enumerated(EnumType.STRING)
-    private AccountType type;
-
     private Long budget;
-
-    @ElementCollection
-    private List<Long> transactions;
-
-    @Override
-    public String toString() {
-        return "Account{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", balance=" + balance +
-                ", type=" + type +
-                ", budget=" + budget +
-                '}';
-    }
 }
